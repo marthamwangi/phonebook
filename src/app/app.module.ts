@@ -7,6 +7,7 @@ import { ContactDetailComponent } from './components/contact-detail/contact-deta
 import { CreateOrUpdateContactComponent } from './components/create-or-update-contact/create-or-update-contact.component';
 import { NotFoundComponent } from './components/not-found/not-found.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 const UI_COMPONENTS = [
   ListContactsComponent,
@@ -26,7 +27,8 @@ const UI_COMPONENTS = [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    FontAwesomeModule
   ],
   providers: [],
   bootstrap: [AppComponent]
