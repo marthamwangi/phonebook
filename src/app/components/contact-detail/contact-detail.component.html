@@ -1,28 +1,3 @@
-<div class="container">
-  <div class="row">
-    <div class="col-lg-4">
-      <div class="card card-margin">
-        <div class="card-header no-border">
-          <h5 class="card-title">{{contact?.firstName}} {{contact?.lastName}}</h5>
-        </div>
-        <div class="card-body pt-0">
-          <div class="widget-49">
-            <div class="widget-49-title-wrapper">
-              <div class="widget-49-date-primary">
-                <span class="widget-49-date-day">09</span>
-                <span class="widget-49-date-month">apr</span>
-              </div>
-              <div class="widget-49-meeting-info">
-                <span class="widget-49-pro-title">PRO-08235 DeskOpe. Website</span>
-                <span class="widget-49-meeting-time">{{contact?.email}}</span>
-              </div>
-            </div>
-            <div class="widget-49-meeting-action">
-              <a routerLink="/all" class="btn btn-sm btn-flash-border-primary">Back</a>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
+<div class="wrapper">
+  <a routerLink="/all"><i class="bi bi-arrow-left"></i> contact</a>
+  {{contact?.firstName}} </div>
