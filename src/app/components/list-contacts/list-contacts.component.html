@@ -1,6 +1,9 @@
-<h1>Phonebook</h1>
-<a routerLink="/create/new">Add contact</a>
-<form [formGroup]="searchForm" >
+<div class="header">
+  <a routerLink="/create/new">Add contact</a>
+  <h1>My Contacts</h1>
+</div>
+
+<form [formGroup]="searchForm">
   <input type="text" placeholder="search by name" formControlName="searchQuery">
 </form>
 <button (click)="changeViewStyle()">{{view === 'list' ? 'grid' : 'list'}}</button>
@@ -50,7 +53,8 @@
 </ng-template>
 
 <ng-template #checkboxTemplate let-id="id">
-  <input type="checkbox" #checkboxInputElement (change)="addOrRemoveFromContactsToDelete(checkboxInputElement.checked ? 'add' : 'remove', id)">
+  <input type="checkbox" #checkboxInputElement
+    (change)="addOrRemoveFromContactsToDelete(checkboxInputElement.checked ? 'add' : 'remove', id)">
 </ng-template>
 
 <ng-template #editContactTemplate let-id="id">
@@ -58,7 +62,7 @@
 </ng-template>
 
 <ng-template #deleteContactTemplate let-contact="contact">
-<button (click)="markContactToDelete(contact)">Delete</button>
+  <button (click)="markContactToDelete(contact)">Delete</button>
 </ng-template>
 
 <ng-template #viewContactTemplate let-id="id">
