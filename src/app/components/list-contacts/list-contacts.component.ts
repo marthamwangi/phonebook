@@ -115,4 +115,8 @@ export class ListContactsComponent implements OnInit, OnDestroy{
     this.contactToDelete = null;
     this.contactIdsToDelete = [];
   }
+
+  public trackFunction(index: number, contact: IContact) {
+    return contact.id
+  }
 }
