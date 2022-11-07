@@ -1,0 +1,80 @@
+<h1>Phonebook</h1>
+<a routerLink="/create/new">Add contact</a>
+<form [formGroup]="searchForm" >
+  <input type="text" placeholder="search by name" formControlName="searchQuery">
+</form>
+<button (click)="changeViewStyle()">{{view === 'list' ? 'grid' : 'list'}}</button>
+
+<ng-container *ngTemplateOutlet="view === 'list' ? listTemplate : gridTemplate; context:{
+  contacts: (renderedContacts$ | async)}"></ng-container>
+
+<ng-template #listTemplate let-contacts="contacts">
+  <ul>
+    <li *ngFor="let contact of contacts">{{contact.firstName}} {{contact.lastName}}
+      <ng-template [ngTemplateOutlet]="checkboxTemplate" [ngTemplateOutletContext]="{
+        id: contact.id
+      }"></ng-template>
+      <ng-template [ngTemplateOutlet]="editContactTemplate" [ngTemplateOutletContext]="{
+        id: contact.id
+      }"></ng-template>
+      <ng-template [ngTemplateOutlet]="deleteContactTemplate" [ngTemplateOutletContext]="{
+        contact: contact
+      }"></ng-template>
+      <ng-template [ngTemplateOutlet]="viewContactTemplate" [ngTemplateOutletContext]="{
+        id: contact.id
+      }"></ng-template>
+    </li>
+  </ul>
+</ng-template>
+
+<ng-template #gridTemplate let-contacts="contacts">
+  <ul>
+    <li *ngFor="let contact of contacts">{{contact.firstName}} {{contact.lastName}}
+      <ng-template [ngTemplateOutlet]="checkboxTemplate" [ngTemplateOutletContext]="{
+        id: contact.id
+      }"></ng-template>
+
+      <ng-template [ngTemplateOutlet]="editContactTemplate" [ngTemplateOutletContext]="{
+        id: contact.id
+      }"></ng-template>
+
+      <ng-template [ngTemplateOutlet]="deleteContactTemplate" [ngTemplateOutletContext]="{
+        contact: contact
+      }"></ng-template>
+
+      <ng-template [ngTemplateOutlet]="viewContactTemplate" [ngTemplateOutletContext]="{
+        id: contact.id
+      }"></ng-template>
+    </li>
+  </ul>
+</ng-template>
+
+<ng-template #checkboxTemplate let-id="id">
+  <input type="checkbox" #checkboxInputElement (change)="addOrRemoveFromContactsToDelete(checkboxInputElement.checked ? 'add' : 'remove', id)">
+</ng-template>
+
+<ng-template #editContactTemplate let-id="id">
+  <a routerLink="/create/{{id}}">edit</a>
+</ng-template>
+
+<ng-template #deleteContactTemplate let-contact="contact">
+<button (click)="markContactToDelete(contact)">Delete</button>
+</ng-template>
+
+<ng-template #viewContactTemplate let-id="id">
+  <a routerLink="/view/{{id}}">view</a>
+</ng-template>
+
+<div *ngIf="contactIdsToDelete.length || contactToDelete">
+  <ng-container *ngTemplateOutlet="contactToDelete ? deleteOneContactTemplate : deleteManyContacts"></ng-container>
+  <ng-template #deleteOneContactTemplate>
+    {{contactToDelete?.firstName}} {{contactToDelete?.lastName}} will be deleted
+    <button (click)="deleteOneContact(contactToDelete?.id)">Delete</button>
+  </ng-template>
+
+  <ng-template #deleteManyContacts>
+    you are about to delete {{contactIdsToDelete.length}}
+    <button (click)="deleteSelectedContacts()">Delete</button>
+  </ng-template>
+
+</div>

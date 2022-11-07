@@ -1,0 +1,11 @@
+<form [formGroup]="contactForm">
+  <input type="text" placeholder="First Name" formControlName="firstName">
+  <input type="text" placeholder="Last Name"  formControlName="lastName">
+  <input type="email" placeholder="Email" formControlName="email">
+  <input type="text" placeholder="Phone Number" formControlName="phoneNumber">
+  <input type="text" placeholder="Image Url" formControlName="contactImage">
+  <input type="text" placeholder="Physical Address" formControlName="physicalAddress">
+  <button [disabled]="contactForm.invalid" (click)="addOrUpdate(action)"> {{action === 'create' ? 'Add' : 'Update'}}</button>
+</form>
+<a routerLink="/all">Home</a>
+
