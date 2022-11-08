@@ -3,6 +3,9 @@ import { FormControl, FormGroup } from '@angular/forms';
 import { BehaviorSubject, debounceTime, distinctUntilChanged, Observable, Subject, takeUntil } from 'rxjs';
 import { IContact } from 'src/app/shared/models/contact.model';
 import { StorageService } from 'src/app/shared/services/storage.service';
+import {faPlus} from '@fortawesome/free-solid-svg-icons';
+
+type ViewTypes = 'list' | 'grid';
 
 @Component({
   selector: 'app-list-contacts',
@@ -10,13 +13,15 @@ import { StorageService } from 'src/app/shared/services/storage.service';
   styleUrls: ['./list-contacts.component.scss']
 })
 export class ListContactsComponent implements OnInit, OnDestroy{
+  faPlus = faPlus;
   public renderedContacts$: BehaviorSubject<Array<IContact>>;
   private _unsubscribe$: Subject<boolean>;
-  public view: 'list' | 'grid';
+  public view: ViewTypes;
   private _contacts: Array<IContact>;
   public searchForm:FormGroup;
   public contactIdsToDelete: Array<string>;
   public contactToDelete: IContact | null;
+  public views: Array<ViewTypes>;
 
   constructor(private _storageService: StorageService) {
     this.renderedContacts$ = new BehaviorSubject<Array<IContact>>([]);
@@ -28,6 +33,7 @@ export class ListContactsComponent implements OnInit, OnDestroy{
     });
     this.contactIdsToDelete = [];
     this.contactToDelete = null;
+    this.views = ['list', 'grid'];
   }
 
   ngOnInit(): void {
@@ -71,17 +77,16 @@ export class ListContactsComponent implements OnInit, OnDestroy{
       //only search after N ms since last user's input to avoid unnecessary requests to data store
       debounceTime(300)
     ).subscribe({
-      next: value => this._filterContacts(value.toLowerCase())
+      next: value => this._filterContacts(value.toLowerCase().trim())
     })
   }
 
   private _filterContacts(searchTerm: string) {
-    this.renderedContacts$.next(this._contacts.filter(contact => contact.firstName.toLowerCase().includes(searchTerm) || contact.lastName.toLowerCase().includes(searchTerm)))
+    console.log(searchTerm)
+    this.renderedContacts$.next(this._contacts.filter(contact => (`${contact.firstName} ${contact.lastName}`).toLowerCase().includes(searchTerm)))
   }
 
   public addOrRemoveFromContactsToDelete(action:'add' | 'remove', contactId: string){
-    console.log(action)
-    console.log(contactId)
     if(action === 'add'){
       this.contactIdsToDelete.push(contactId);
     }else{

@@ -1,0 +1,56 @@
+.wrapper {
+  background-color: white;
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  $common-row-gap: 20px;
+
+  &__header {
+    $common-padding: 8px;
+    display: flex;
+    flex-direction: column;
+    row-gap: $common-row-gap;
+
+
+    &__views {
+      border-top: 2px solid #ddd;
+      border-bottom: 2px solid #ddd;
+      padding: $common-padding;
+      text-transform: capitalize;
+      display: flex;
+      justify-content: space-around;
+
+      &__view {
+        opacity: .5;
+
+        &--active {
+          opacity: 1;
+        }
+      }
+    }
+
+    &__search {
+      padding: 0 $common-padding calc($common-padding * 2);
+      display: flex;
+      justify-content: center;
+
+      input {
+        padding: 12px 8px;
+        width: 75%;
+        border-radius: 10px;
+        border: 1px solid #ddd;
+
+        &:focus-visible {
+          border-color: rgb(225, 0, 255);
+          outline: none;
+        }
+      }
+    }
+  }
+
+  &__body {
+    background-color: orange;
+    overflow: auto;
+  }
+}
