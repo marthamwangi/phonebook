@@ -1,5 +1,9 @@
 /* Large devices (laptops/desktops, 992px and up) */
 @media (min-width: 992px) {
+  html {
+    font-size: calc(0.75rem + 0.8vw);
+  }
+
   .wrapper {
     background-color: red;
   }

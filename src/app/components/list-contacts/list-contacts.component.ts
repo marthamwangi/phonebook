@@ -3,9 +3,14 @@ import { FormControl, FormGroup } from '@angular/forms';
 import { BehaviorSubject, debounceTime, distinctUntilChanged, Observable, Subject, takeUntil } from 'rxjs';
 import { IContact } from 'src/app/shared/models/contact.model';
 import { StorageService } from 'src/app/shared/services/storage.service';
-import {faPlus} from '@fortawesome/free-solid-svg-icons';
+import {faGripVertical, faPencil, faList, faPlus,faSearch,IconDefinition, faTrash} from '@fortawesome/free-solid-svg-icons';
 
-type ViewTypes = 'list' | 'grid';
+type LayoutTypes = 'list' | 'grid';
+
+interface ILayout {
+  style: LayoutTypes;
+  icon: IconDefinition;
+}
 
 @Component({
   selector: 'app-list-contacts',
@@ -14,26 +19,34 @@ type ViewTypes = 'list' | 'grid';
 })
 export class ListContactsComponent implements OnInit, OnDestroy{
   faPlus = faPlus;
+  faGripVertical = faGripVertical;
+  faList=faList;
+  faSearch=faSearch;
+  faPencil = faPencil;
+  faTrash =faTrash;
   public renderedContacts$: BehaviorSubject<Array<IContact>>;
   private _unsubscribe$: Subject<boolean>;
-  public view: ViewTypes;
   private _contacts: Array<IContact>;
   public searchForm:FormGroup;
   public contactIdsToDelete: Array<string>;
   public contactToDelete: IContact | null;
-  public views: Array<ViewTypes>;
+  public layout: ILayout;
+  public layoutStyles: Array<ILayout>;
 
   constructor(private _storageService: StorageService) {
     this.renderedContacts$ = new BehaviorSubject<Array<IContact>>([]);
     this._unsubscribe$ = new Subject<boolean>();
-    this.view = 'list';
     this._contacts = [];
     this.searchForm = new FormGroup({
       searchQuery: new FormControl()
     });
     this.contactIdsToDelete = [];
     this.contactToDelete = null;
-    this.views = ['list', 'grid'];
+    this.layoutStyles = [
+      {style: 'list', icon: this.faList},
+      {style: 'grid', icon: this.faGripVertical}
+    ]
+    this.layout = this.layoutStyles[1]
   }
 
   ngOnInit(): void {
@@ -51,6 +64,11 @@ export class ListContactsComponent implements OnInit, OnDestroy{
     this._unsubscribe$.complete();
   }
 
+  public changeLayoutStyle(layoutStyle: ILayout){
+    this.layout = layoutStyle;
+
+  }
+
   private _listenContactsChanges(){
     (this._storageService.storageAPI('read', {
       oneOrMany: 'many'
@@ -64,9 +82,7 @@ export class ListContactsComponent implements OnInit, OnDestroy{
     })
   }
 
-  public changeViewStyle() {
-    this.view = this.view === 'list' ? 'grid' : 'list';
-  }
+
 
   private _listenForSearchInput(){
     this.searchForm.get('searchQuery')?.valueChanges.pipe(

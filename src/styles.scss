@@ -1,9 +1,22 @@
 /* You can add global styles to this file, and also import other style files */
+:root {
+  --primary: #6866FE;
+  --secondary: #9867FE;
+  --success: #ffffff;
+  --danger: #ffffff;
+  --warning: #ffffff;
+  --info: #9e9ea7;
+  --info-light: #ddd;
+  --light: #FFFFFF;
+  --dark: #000000;
+}
+
 *,
 *::before,
 *::after {
   box-sizing: border-box;
 }
+
 
 /* Remove default margin */
 body,
@@ -22,8 +35,11 @@ html:focus-within {
 
 body {
   min-height: 100vh;
+  font-family:
+    "Haas Grot Text R Web", "Helvetica Neue", Helvetica, Arial, sans-serif;
   text-rendering: optimizeSpeed;
   line-height: 1.5;
+  font-size: 1rem;
 }
 
 ul[role='list'],
@@ -36,8 +52,8 @@ a:not([class]) {
 }
 
 img {
-  max-width: 100%;
-  display: block;
+  max-inline-size: 100%;
+  block-size: auto;
 }
 
 input,
@@ -45,6 +61,14 @@ button,
 textarea,
 select {
   font: inherit;
+}
+
+.container {
+  display: flex;
+}
+
+html {
+  font-size: calc(0.75rem + 1.5vw);
 }
 
 @media (prefers-reduced-motion: reduce) {

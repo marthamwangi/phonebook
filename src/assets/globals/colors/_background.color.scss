@@ -2,6 +2,18 @@
   Any background colors that should possibly be shared in the whole application,
   should come into this file.
 **/
-.bg-orange {
-  background-color: orange;
+.bg-primary {
+  background-color: var(--primary);
+}
+
+.bg-secondary {
+  background-color: var(--secondary);
+}
+
+.bg-light {
+  background-color: var(--light);
+}
+
+.bg-linear-gradient {
+  background: linear-gradient(45, --secondary, --primary);
 }

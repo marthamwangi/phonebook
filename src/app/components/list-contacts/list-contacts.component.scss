@@ -1,31 +1,65 @@
 .wrapper {
-  background-color: white;
-  height: 100%;
   width: 100%;
+  height: 100vh;
   display: flex;
   flex-direction: column;
   $common-row-gap: 20px;
 
   &__header {
     $common-padding: 8px;
+    $common-margin-x-axis: 0 8px;
+    margin-top: 2.2rem;
     display: flex;
     flex-direction: column;
     row-gap: $common-row-gap;
 
+    &__add__contact {
+      margin: $common-margin-x-axis;
+      text-align: right;
+      font-size: calc(1.5rem + 1.5vw);
 
-    &__views {
-      border-top: 2px solid #ddd;
-      border-bottom: 2px solid #ddd;
+      a {
+        color: var(--dark);
+      }
+    }
+
+    &__title {
+      margin: $common-margin-x-axis;
+
+      span {
+        font-size: calc(0.4rem + 1.5vw);
+        color: var(--info);
+      }
+    }
+
+    &__layouts {
+      border-top: 2px solid var(--info);
+      border-bottom: 2px solid var(--info);
       padding: $common-padding;
       text-transform: capitalize;
       display: flex;
       justify-content: space-around;
 
-      &__view {
+
+      &__layout {
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        padding: 2px 5px;
+        width: 20%;
+        text-align: center;
         opacity: .5;
+        border-radius: 5em;
+
+        fa-icon {
+          font-size: .7rem;
+        }
 
         &--active {
           opacity: 1;
+          color: var(--light);
+          background-color: var(--primary);
+
         }
       }
     }
@@ -33,24 +67,196 @@
     &__search {
       padding: 0 $common-padding calc($common-padding * 2);
       display: flex;
-      justify-content: center;
+      justify-content: space-around;
+      position: relative;
+
+      label {
+        position: absolute;
+        color: var(--info);
+        transform: translate(0.5rem, 1rem) scale(1);
+
+      }
 
       input {
         padding: 12px 8px;
-        width: 75%;
-        border-radius: 10px;
-        border: 1px solid #ddd;
+        border-radius: 5em;
+        border: 1px solid var(--info-light);
+        text-align: center;
 
         &:focus-visible {
-          border-color: rgb(225, 0, 255);
+          border-color: var(--secondary);
           outline: none;
+        }
+
+        &::placeholder {
+          color: var(--info);
         }
       }
     }
   }
 
   &__body {
-    background-color: orange;
     overflow: auto;
+    $common-padding: 8px;
+    $common-margin-x: 0 8px;
+    $common-row-gap: 8px;
+
+    &__contact__list {
+
+      &__card {
+        margin: $common-margin-x ;
+        padding: calc($common-padding + 2px);
+        border-bottom: 1px solid var(--info-light);
+        display: flex;
+        align-items: center;
+
+        &__detail {
+          text-decoration: none;
+          color: var(--dark);
+          display: flex !important;
+          flex-direction: row;
+          column-gap: $common-row-gap ;
+          align-items: center;
+          width: 75%;
+
+          &__avatar {
+            width: 50px;
+
+            img {
+              aspect-ratio: 2/1;
+              object-fit: cover;
+              object-position: top center;
+              border-radius: 50%;
+              height: 50px;
+
+            }
+          }
+
+          &__span {
+            background-color: var(--info);
+            text-align: center;
+            padding: 5px;
+            color: var(--light);
+            border-radius: 50%;
+            text-transform: capitalize;
+            font-size: 1.5rem;
+
+          }
+
+          &__name__and__phone {
+            display: flex;
+            flex-direction: column;
+
+            p.name {
+              font-weight: bold;
+              text-transform: capitalize;
+            }
+
+            p.phone {
+              font-size: 0.8rem;
+              color: var(--info);
+            }
+          }
+        }
+
+        &__actions {
+          margin-left: auto;
+          margin-right: $common-margin-x;
+
+          fa-icon,
+          input[type="checkbox"] {
+
+            color: var(--primary);
+          }
+
+          fa-icon {
+            margin: $common-margin-x;
+          }
+        }
+      }
+
+    }
+
+    &__contact__grid {
+
+      &__container {
+        display: grid;
+        grid-template-columns: auto auto;
+        justify-content: space-around;
+        align-content: center;
+        padding: 10px 8px 10px 8px;
+        gap: 15px;
+
+
+        &__card {
+          width: 170px;
+          height: 170px;
+          border-radius: 25px;
+          box-shadow: 1px 1px 8px 1px var(--primary);
+
+          &__detail {
+            text-decoration: none;
+            color: var(--dark);
+            display: flex !important;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+
+            &__avatar {
+              width: 100%;
+
+              img {
+                border-radius: 25px 25px 0 0;
+                aspect-ratio: 2/1;
+                object-fit: cover;
+                object-position: top center;
+
+              }
+            }
+
+            &__span {
+              display: flex;
+              flex-direction: column;
+              align-items: center;
+              justify-content: center;
+              border-radius: 25px 25px 0 0;
+              width: 170px;
+              height: 85px;
+              font-size: 2rem;
+              color: var(--light);
+              background-color: var(--primary);
+            }
+
+            &__name__and__phone {
+
+
+              p.name {
+                font-weight: bold;
+                text-transform: capitalize;
+              }
+
+              p.phone {
+                font-size: 0.8rem;
+                color: var(--info);
+              }
+            }
+          }
+
+          &__actions {
+            text-align: center;
+
+
+
+            fa-icon {
+              color: var(--primary);
+              margin: 0 10px 0 10px;
+            }
+          }
+        }
+      }
+
+    }
+
   }
+
 }

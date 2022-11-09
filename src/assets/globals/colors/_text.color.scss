@@ -1,3 +1,11 @@
-.text-orange{
-  color:#d17020;
+.text-primary {
+  color: var(--primary);
+}
+
+.text-secondary {
+  color: var(--secondary);
+}
+
+.text-grey {
+  color: var(--info);
 }
